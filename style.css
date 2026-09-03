@@ -1,0 +1,386 @@
+:root{
+  --sky-top:#bfe6f5;
+  --sky-bottom:#fdf1d6;
+  --sun:#ffe27a;
+  --sun-glow:rgba(255,226,122,.55);
+  --cloud:#ffffff;
+
+  --hill-back:#7fb06a;
+  --hill-front:#4f8a46;
+  --tree-dark:#2f5233;
+  --tree-mid:#3f7a3f;
+  --tree-light:#5b9a4c;
+  --trunk:#6b4a2b;
+
+  --box-red:#c23b62;
+  --box-red-dark:#9c2e4e;
+  --ribbon-gold:#f4c430;
+  --ribbon-gold-dark:#d9a521;
+  --flower-yellow:#ffd23f;
+  --flower-yellow-dark:#f2b705;
+  --flower-center:#8a5a22;
+  --leaf-green:#5c8a3a;
+
+  --hamster-tan:#d9a566;
+  --hamster-tan-dark:#b9814b;
+  --hamster-belly:#f6e3c4;
+  --hamster-blush:#f4a0a0;
+
+  --cream:#fff6e9;
+  --ink:#3e2e22;
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+  font-family:'Baloo 2', sans-serif;
+  background:var(--sky-bottom);
+}
+
+.scene{
+  position:relative;
+  min-height:100vh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:6vh 20px 8vh;
+  background:linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
+  overflow:hidden;
+}
+
+.sun{
+  position:absolute;
+  top:6%;
+  right:9%;
+  width:86px;
+  height:86px;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 35%, #fff7d8, var(--sun) 70%);
+  box-shadow:0 0 60px 10px var(--sun-glow);
+  z-index:1;
+}
+
+.cloud{
+  position:absolute;
+  background:var(--cloud);
+  border-radius:999px;
+  opacity:.85;
+  z-index:1;
+}
+.cloud::before,
+.cloud::after{
+  content:"";
+  position:absolute;
+  background:var(--cloud);
+  border-radius:999px;
+}
+.cloud-a{
+  top:10%;
+  left:8%;
+  width:70px;
+  height:24px;
+}
+.cloud-a::before{ width:38px; height:38px; top:-16px; left:8px; }
+.cloud-a::after{ width:28px; height:28px; top:-10px; left:36px; }
+
+.cloud-b{
+  top:17%;
+  left:62%;
+  width:54px;
+  height:18px;
+}
+.cloud-b::before{ width:28px; height:28px; top:-12px; left:6px; }
+.cloud-b::after{ width:20px; height:20px; top:-7px; left:26px; }
+
+.forest{
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:42vh;
+  min-height:220px;
+  z-index:2;
+  pointer-events:none;
+}
+
+.intro-text{
+  position:relative;
+  z-index:4;
+  color:var(--ink);
+  font-size:clamp(1.4rem, 4vw, 2rem);
+  font-weight:600;
+  text-align:center;
+  margin:0 0 1.2rem;
+  letter-spacing:.2px;
+  text-shadow:0 2px 0 rgba(255,255,255,.4);
+  transition:opacity .5s ease;
+}
+.intro-text.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+.stage{
+  position:relative;
+  z-index:4;
+  width:min(420px, 80vw);
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  margin-top:auto;
+}
+
+.gift-wrap{
+  position:relative;
+  width:100%;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.gift-wrap.opened{
+  cursor:default;
+}
+
+.box-shadow{
+  position:absolute;
+  left:50%;
+  bottom:6px;
+  width:62%;
+  height:16px;
+  background:radial-gradient(ellipse at center, rgba(0,0,0,.28), rgba(0,0,0,0) 72%);
+  transform:translateX(-50%);
+  transition:width .5s ease, opacity .5s ease;
+}
+.gift-wrap.opened .box-shadow{
+  width:78%;
+  opacity:.85;
+}
+
+.gift-wrap svg{
+  display:block;
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 14px 14px rgba(35,20,10,.28));
+}
+
+.gift-wrap:not(.opened):hover .box-lid,
+.gift-wrap:not(.opened):focus-visible .box-lid{
+  transform:translateY(-4px) rotate(-1.5deg);
+}
+
+.box-lid{
+  transform-origin:100px 118px;
+  transition:transform .28s ease;
+}
+.hamster-figure{
+  opacity:0;
+  transform:translateY(10px) scale(.45);
+  transform-origin:100px 160px;
+}
+
+.gift-wrap.opening .box-lid{
+  animation:lidPop 1s cubic-bezier(.3,1.5,.55,1) forwards;
+}
+.gift-wrap.opening .ribbon-bow{
+  animation:bowFade .45s ease forwards;
+}
+.gift-wrap.opening .hamster-figure{
+  animation:hamsterPop 1.15s cubic-bezier(.22,1.7,.36,1) .38s forwards;
+}
+.gift-wrap.opening .box-flap-left{
+  animation:flapLeft .75s cubic-bezier(.34,1.2,.4,1) .08s forwards;
+}
+.gift-wrap.opening .box-flap-right{
+  animation:flapRight .75s cubic-bezier(.34,1.2,.4,1) .08s forwards;
+}
+.gift-wrap.opened .hamster-figure{
+  animation:hamsterIdle 2.6s ease-in-out 1.55s infinite;
+}
+
+@keyframes lidPop{
+  0%{transform:translate(0,0) rotate(0deg); opacity:1;}
+  50%{transform:translate(-6px,-58px) rotate(-24deg); opacity:1;}
+  100%{transform:translate(-10px,-88px) rotate(-34deg); opacity:0;}
+}
+@keyframes bowFade{
+  0%{opacity:1; transform:scale(1);}
+  100%{opacity:0; transform:scale(.55);}
+}
+@keyframes flapLeft{
+  0%{transform:rotate(0deg);}
+  60%{transform:rotate(-42deg);}
+  100%{transform:rotate(-36deg);}
+}
+@keyframes flapRight{
+  0%{transform:rotate(0deg);}
+  60%{transform:rotate(42deg);}
+  100%{transform:rotate(36deg);}
+}
+@keyframes hamsterPop{
+  0%{opacity:0; transform:translateY(10px) scale(.45);}
+  55%{opacity:1; transform:translateY(-38px) scale(1.08);}
+  75%{transform:translateY(-28px) scale(.97);}
+  100%{opacity:1; transform:translateY(-32px) scale(1);}
+}
+@keyframes hamsterIdle{
+  0%,100%{transform:translateY(-32px) scale(1) rotate(0deg);}
+  50%{transform:translateY(-36px) scale(1) rotate(1deg);}
+}
+
+.box-flap-left{transform-origin:70px 163px;}
+.box-flap-right{transform-origin:130px 163px;}
+
+.instruction-pill{
+  position:relative;
+  z-index:4;
+  margin-top:1.6rem;
+  color:var(--ink);
+  background:rgba(255,255,255,.55);
+  padding:.4rem 1.1rem;
+  border-radius:999px;
+  opacity:.9;
+  font-size:.95rem;
+  text-align:center;
+  transition:opacity .4s ease;
+}
+.instruction-pill.hidden{opacity:0;}
+
+/* confeti de petalos */
+.petals{
+  position:absolute;
+  inset:0;
+  z-index:6;
+  pointer-events:none;
+  overflow:hidden;
+}
+.petal{
+  position:absolute;
+  top:-5%;
+  opacity:0;
+  animation-name:fall;
+  animation-timing-function:ease-in;
+  animation-fill-mode:forwards;
+}
+@keyframes fall{
+  0%{opacity:0; transform:translateY(0) rotate(0deg);}
+  8%{opacity:1;}
+  100%{opacity:.9; transform:translateY(110vh) rotate(340deg);}
+}
+
+/* destellos al abrir la caja */
+.sparkles circle{
+  opacity:0;
+}
+.gift-wrap.opening .sparkles circle{
+  animation:sparkle .8s ease-out forwards;
+}
+@keyframes sparkle{
+  0%{opacity:0; transform:scale(0);}
+  35%{opacity:1; transform:scale(1);}
+  100%{opacity:0; transform:scale(0);}
+}
+
+/* tarjeta del mensaje */
+.message-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(30,26,20,0);
+  pointer-events:none;
+  transition:background .5s ease;
+}
+.message-overlay.visible{
+  background:rgba(30,26,20,.5);
+  pointer-events:auto;
+}
+.message-card{
+  max-width:460px;
+  width:100%;
+  background:var(--cream);
+  border-radius:22px;
+  padding:2.1rem 1.9rem 1.7rem;
+  box-shadow:0 24px 50px rgba(0,0,0,.35);
+  text-align:center;
+  transform:translateY(24px) scale(.96);
+  opacity:0;
+  transition:transform .55s cubic-bezier(.2,.9,.3,1.2), opacity .5s ease;
+  position:relative;
+  border:3px solid #ffffffaa;
+}
+.message-overlay.visible .message-card{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+.message-title{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:1.5rem;
+  color:var(--box-red-dark);
+  margin:.4rem 0 1rem;
+}
+.message-body{
+  font-family:'Caveat', cursive;
+  font-weight:600;
+  font-size:1.5rem;
+  line-height:1.5;
+  color:var(--ink);
+  margin:0;
+}
+.message-shout{
+  display:block;
+  margin-top:.9rem;
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  font-size:1.55rem;
+  color:var(--box-red);
+  letter-spacing:.5px;
+}
+.close-btn{
+  margin-top:1.5rem;
+  border:none;
+  background:var(--box-red);
+  color:var(--cream);
+  font-family:'Baloo 2', sans-serif;
+  font-weight:600;
+  font-size:.95rem;
+  padding:.6rem 1.4rem;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background .2s ease, transform .15s ease;
+}
+.close-btn:hover{
+  background:var(--box-red-dark);
+  transform:translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .gift-wrap.opening .box-lid,
+  .gift-wrap.opening .ribbon-bow,
+  .gift-wrap.opening .hamster-figure,
+  .gift-wrap.opening .box-flap-left,
+  .gift-wrap.opening .box-flap-right,
+  .gift-wrap.opened .hamster-figure,
+  .sparkles circle{
+    animation-duration:.01ms !important;
+    animation-fill-mode:forwards !important;
+  }
+  .petal{animation-duration:.01ms !important;}
+  .message-card{transition:none;}
+  .message-overlay{transition:none;}
+}
+
+@media (max-width:420px){
+  .message-body{font-size:1.3rem;}
+  .message-shout{font-size:1.3rem;}
+  .forest{height:36vh;}
+}
