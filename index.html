@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz cumpleaños, hamstercito 🐹</title>
+<meta name="description" content="Un regalito animado con flores amarillas para un hamstercito muy querido.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#a9def9;
+    --sky-mid:#cdeaf7;
+    --sky-bottom:#fdf1d6;
+    --sun-core:#fff6d0;
+    --sun:#ffdd6b;
+    --sun-glow:rgba(255,221,107,.5);
+    --cloud:#ffffff;
+
+    --hill-back:#9ecb84;
+    --hill-mid:#72b25c;
+    --hill-front:#4f8a46;
+    --hill-front-dark:#3c6b37;
+    --tree-dark:#2f5233;
+    --tree-mid:#3f7a3f;
+    --tree-light:#5b9a4c;
+    --trunk:#6b4a2b;
+
+    --box-red:#c23b62;
+    --box-red-dark:#9c2e4e;
+    --box-red-darker:#7c2440;
+    --ribbon-gold:#f4c430;
+    --ribbon-gold-dark:#d9a521;
+    --flower-yellow:#ffd23f;
+    --flower-yellow-deep:#f2b705;
+    --flower-center:#8a5a22;
+    --leaf-green:#5c8a3a;
+    --heart-pink:#f28fb0;
+
+    --hamster-tan:#d9a566;
+    --hamster-tan-dark:#b9814b;
+    --hamster-belly:#f6e3c4;
+    --hamster-blush:#f4a0a0;
+
+    --cream:#fff6e9;
+    --ink:#3e2e22;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+    font-family:'Baloo 2', sans-serif;
+    background:var(--sky-bottom);
+  }
+
+  .scene{
+    position:relative;
+    min-height:100vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:6vh 20px 6vh;
+    background:linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
+    overflow:hidden;
+  }
+
+  .sun{
+    position:absolute;
+    top:6%;
+    right:8%;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:radial-gradient(circle at 38% 35%, var(--sun-core), var(--sun) 72%);
+    box-shadow:0 0 70px 14px var(--sun-glow);
+    z-index:1;
+  }
+  .sun-ray{
+    position:absolute;
+    top:6%;
+    right:8%;
+    width:90px;
+    height:90px;
+    z-index:0;
+  }
+  .sun-ray::before,
+  .sun-ray::after{
+    content:"";
+    position:absolute;
+    inset:-30px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--sun-glow) 0%, rgba(255,221,107,0) 70%);
+  }
+
+  .cloud{
+    position:absolute;
+    background:var(--cloud);
+    border-radius:999px;
+    opacity:.9;
+    z-index:1;
+  }
+  .cloud::before,
+  .cloud::after{
+    content:"";
+    position:absolute;
+    background:var(--cloud);
+    border-radius:999px;
+  }
+  .cloud-a{ top:9%; left:7%; width:74px; height:24px; }
+  .cloud-a::before{ width:40px; height:40px; top:-17px; left:8px; }
+  .cloud-a::after{ width:30px; height:30px; top:-10px; left:38px; }
+
+  .cloud-b{ top:16%; left:60%; width:56px; height:18px; }
+  .cloud-b::before{ width:30px; height:30px; top:-13px; left:6px; }
+  .cloud-b::after{ width:22px; height:22px; top:-8px; left:28px; }
+
+  .cloud-c{ top:22%; left:30%; width:44px; height:15px; opacity:.75; }
+  .cloud-c::before{ width:24px; height:24px; top:-10px; left:5px; }
+  .cloud-c::after{ width:18px; height:18px; top:-6px; left:22px; }
+
+  .butterfly{
+    position:absolute;
+    z-index:3;
+    width:20px;
+    height:16px;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count:infinite;
+  }
+  .butterfly svg{width:100%;height:100%;display:block;}
+  .butterfly .wing{
+    transform-origin:10px 8px;
+    animation:flap 0.5s ease-in-out infinite;
+  }
+  .butterfly-a{ top:28%; left:14%; animation-name:driftA; animation-duration:9s; }
+  .butterfly-b{ top:20%; left:78%; animation-name:driftB; animation-duration:11s; animation-delay:1.2s; }
+
+  @keyframes flap{
+    0%,100%{ transform:scaleX(1); }
+    50%{ transform:scaleX(.45); }
+  }
+  @keyframes driftA{
+    0%{ transform:translate(0,0) rotate(0deg); }
+    25%{ transform:translate(30px,-14px) rotate(6deg); }
+    50%{ transform:translate(55px,4px) rotate(-4deg); }
+    75%{ transform:translate(28px,18px) rotate(4deg); }
+    100%{ transform:translate(0,0) rotate(0deg); }
+  }
+  @keyframes driftB{
+    0%{ transform:translate(0,0) rotate(0deg); }
+    30%{ transform:translate(-26px,10px) rotate(-6deg); }
+    60%{ transform:translate(-48px,-8px) rotate(5deg); }
+    100%{ transform:translate(0,0) rotate(0deg); }
+  }
+
+  .forest{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:46vh;
+    min-height:250px;
+    z-index:2;
+    pointer-events:none;
+  }
+
+  .intro-text{
+    position:relative;
+    z-index:4;
+    color:var(--ink);
+    font-size:clamp(1.4rem, 4vw, 2.1rem);
+    font-weight:600;
+    text-align:center;
+    margin:0 0 1.2rem;
+    letter-spacing:.2px;
+    text-shadow:0 2px 0 rgba(255,255,255,.5);
+    transition:opacity .5s ease;
+  }
+  .intro-text.hidden{
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .stage{
+    position:relative;
+    z-index:4;
+    width:min(430px, 82vw);
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    margin-top:auto;
+  }
+
+  .gift-wrap{
+    position:relative;
+    width:100%;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .gift-wrap.opened{ cursor:default; }
+
+  .box-shadow{
+    position:absolute;
+    left:50%;
+    bottom:4px;
+    width:60%;
+    height:16px;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,.3), rgba(0,0,0,0) 72%);
+    transform:translateX(-50%);
+    transition:width .5s ease, opacity .5s ease;
+  }
+  .gift-wrap.opened .box-shadow{ width:76%; opacity:.85; }
+
+  .gift-wrap svg{
+    display:block;
+    width:100%;
+    height:auto;
+    overflow:visible;
+    filter:drop-shadow(0 14px 14px rgba(35,20,10,.28));
+  }
+
+  .gift-wrap:not(.opened):hover .box-lid,
+  .gift-wrap:not(.opened):focus-visible .box-lid{
+    transform:translateY(-4px) rotate(-1.5deg);
+  }
+
+  .box-lid{
+    transform-origin:100px 118px;
+    transition:transform .28s ease;
+  }
+  .hamster-figure{
+    opacity:0;
+    transform:translateY(10px) scale(.45);
+    transform-origin:100px 160px;
+  }
+
+  .gift-wrap.opening .box-lid{
+    animation:lidPop 1s cubic-bezier(.3,1.5,.55,1) forwards;
+  }
+  .gift-wrap.opening .ribbon-bow{
+    animation:bowFade .45s ease forwards;
+  }
+  .gift-wrap.opening .hamster-figure{
+    animation:hamsterPop 1.15s cubic-bezier(.22,1.7,.36,1) .38s forwards;
+  }
+  .gift-wrap.opened .hamster-figure{
+    animation:hamsterIdle 2.6s ease-in-out 1.55s infinite;
+  }
+
+  @keyframes lidPop{
+    0%{ transform:translate(0,0) rotate(0deg); }
+    55%{ transform:translate(-26px,-62px) rotate(-32deg); }
+    100%{ transform:translate(-46px,-80px) rotate(-52deg); }
+  }
+  @keyframes bowFade{
+    0%{ opacity:1; transform:scale(1); }
+    100%{ opacity:0; transform:scale(.55); }
+  }
+  @keyframes hamsterPop{
+    0%{ opacity:0; transform:translateY(10px) scale(.45); }
+    55%{ opacity:1; transform:translateY(-38px) scale(1.08); }
+    75%{ opacity:1; transform:translateY(-28px) scale(.97); }
+    100%{ opacity:1; transform:translateY(-32px) scale(1); }
+  }
+  @keyframes hamsterIdle{
+    0%,100%{ opacity:1; transform:translateY(-32px) scale(1) rotate(0deg); }
+    50%{ opacity:1; transform:translateY(-36px) scale(1) rotate(1deg); }
+  }
+
+  .box-flap-left{ transform-origin:70px 163px; }
+  .box-flap-right{ transform-origin:130px 163px; }
+
+  .instruction-pill{
+    position:relative;
+    z-index:4;
+    margin-top:1.6rem;
+    color:var(--ink);
+    background:rgba(255,255,255,.6);
+    padding:.4rem 1.1rem;
+    border-radius:999px;
+    opacity:.9;
+    font-size:.95rem;
+    text-align:center;
+    transition:opacity .4s ease;
+  }
+  .instruction-pill.hidden{ opacity:0; }
+
+  .petals{
+    position:absolute;
+    inset:0;
+    z-index:6;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .petal{
+    position:absolute;
+    top:-5%;
+    opacity:0;
+    animation-name:fall;
+    animation-timing-function:ease-in;
+    animation-fill-mode:forwards;
+  }
+  @keyframes fall{
+    0%{ opacity:0; transform:translateY(0) rotate(0deg); }
+    8%{ opacity:1; }
+    100%{ opacity:.9; transform:translateY(110vh) rotate(340deg); }
+  }
+
+  .sparkles circle{ opacity:0; }
+  .gift-wrap.opening .sparkles circle{
+    animation:sparkle .8s ease-out forwards;
+  }
+  @keyframes sparkle{
+    0%{ opacity:0; transform:scale(0); }
+    35%{ opacity:1; transform:scale(1); }
+    100%{ opacity:0; transform:scale(0); }
+  }
+
+  .message-overlay{
+    position:fixed;
+    inset:0;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:rgba(30,26,20,0);
+    pointer-events:none;
+    transition:background .5s ease;
+  }
+  .message-overlay.visible{
+    background:rgba(30,26,20,.5);
+    pointer-events:auto;
+  }
+  .message-card{
+    max-width:460px;
+    width:100%;
+    background:var(--cream);
+    border-radius:22px;
+    padding:2.1rem 1.9rem 1.7rem;
+    box-shadow:0 24px 50px rgba(0,0,0,.35);
+    text-align:center;
+    transform:translateY(24px) scale(.96);
+    opacity:0;
+    transition:transform .55s cubic-bezier(.2,.9,.3,1.2), opacity .5s ease;
+    position:relative;
+    border:3px solid #ffffffaa;
+  }
+  .message-overlay.visible .message-card{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  .message-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:1.5rem;
+    color:var(--box-red-dark);
+    margin:.4rem 0 1rem;
+  }
+  .message-body{
+    font-family:'Caveat', cursive;
+    font-weight:600;
+    font-size:1.5rem;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0;
+  }
+  .message-shout{
+    display:block;
+    margin-top:.9rem;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:1.55rem;
+    color:var(--box-red);
+    letter-spacing:.5px;
+  }
+  .close-btn{
+    margin-top:1.5rem;
+    border:none;
+    background:var(--box-red);
+    color:var(--cream);
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    padding:.6rem 1.4rem;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .close-btn:hover{
+    background:var(--box-red-dark);
+    transform:translateY(-1px);
+  }
+
+  .mute-btn{
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:11;
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.7);
+    font-size:1.2rem;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+    transition:background .2s ease, transform .15s ease;
+  }
+  .mute-btn:hover{
+    background:rgba(255,255,255,.9);
+    transform:translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .gift-wrap.opening .box-lid,
+    .gift-wrap.opening .ribbon-bow,
+    .gift-wrap.opening .hamster-figure,
+    .gift-wrap.opened .hamster-figure,
+    .sparkles circle,
+    .butterfly,
+    .butterfly .wing{
+      animation-duration:.01ms !important;
+      animation-fill-mode:forwards !important;
+    }
+    .petal{ animation-duration:.01ms !important; }
+    .message-card{ transition:none; }
+    .message-overlay{ transition:none; }
+  }
+
+  @media (max-width:420px){
+    .message-body{ font-size:1.3rem; }
+    .message-shout{ font-size:1.3rem; }
+    .forest{ height:38vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+
+  <div class="sun-ray"></div>
+  <div class="sun"></div>
+  <div class="cloud cloud-a"></div>
+  <div class="cloud cloud-b"></div>
+  <div class="cloud cloud-c"></div>
+
+  <div class="butterfly butterfly-a">
+    <svg viewBox="0 0 20 16"><g class="wing"><path d="M10 8 C4 -2, -4 2, 4 8 C-4 14, 4 18, 10 8 Z" fill="#ffd23f"/></g><g class="wing" style="animation-delay:.05s"><path d="M10 8 C16 -2, 24 2, 16 8 C24 14, 16 18, 10 8 Z" fill="#f2b705"/></g><line x1="10" y1="3" x2="10" y2="13" stroke="#5c4326" stroke-width="1"/></svg>
+  </div>
+  <div class="butterfly butterfly-b">
+    <svg viewBox="0 0 20 16"><g class="wing"><path d="M10 8 C4 -2, -4 2, 4 8 C-4 14, 4 18, 10 8 Z" fill="#f9c9d6"/></g><g class="wing" style="animation-delay:.05s"><path d="M10 8 C16 -2, 24 2, 16 8 C24 14, 16 18, 10 8 Z" fill="#f28fb0"/></g><line x1="10" y1="3" x2="10" y2="13" stroke="#5c4326" stroke-width="1"/></svg>
+  </div>
+
+  <svg class="forest" viewBox="0 0 900 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,150 C120,110 220,135 320,122 C430,108 500,80 620,102 C730,120 800,92 900,112 L900,300 L0,300 Z" fill="var(--hill-back)"/>
+
+    <g opacity=".85">
+      <g transform="translate(40,105) scale(.6)"><rect x="-4" y="40" width="8" height="24" rx="2" fill="var(--trunk)"/><circle cx="0" cy="18" r="24" fill="var(--tree-light)"/></g>
+      <g transform="translate(200,118) scale(.55)"><rect x="-4" y="40" width="8" height="24" rx="2" fill="var(--trunk)"/><circle cx="0" cy="18" r="24" fill="var(--tree-light)"/></g>
+      <g transform="translate(820,100) scale(.62)"><rect x="-4" y="40" width="8" height="24" rx="2" fill="var(--trunk)"/><circle cx="0" cy="18" r="24" fill="var(--tree-light)"/></g>
+    </g>
+
+    <path d="M0,175 C110,150 210,178 320,165 C440,150 540,182 660,163 C760,148 830,172 900,158 L900,300 L0,300 Z" fill="var(--hill-mid)"/>
+
+    <g class="tree" transform="translate(70,140)">
+      <rect x="-4" y="42" width="8" height="26" rx="2" fill="var(--trunk)"/>
+      <circle cx="0" cy="18" r="27" fill="var(--tree-mid)"/>
+      <circle cx="-17" cy="30" r="19" fill="var(--tree-dark)"/>
+      <circle cx="17" cy="30" r="19" fill="var(--tree-dark)"/>
+    </g>
+    <g class="tree" transform="translate(170,158) scale(.82)">
+      <rect x="-4" y="42" width="8" height="26" rx="2" fill="var(--trunk)"/>
+      <circle cx="0" cy="18" r="27" fill="var(--tree-light)"/>
+      <circle cx="-17" cy="30" r="19" fill="var(--tree-mid)"/>
+      <circle cx="17" cy="30" r="19" fill="var(--tree-mid)"/>
+    </g>
+    <g class="tree" transform="translate(770,132) scale(1.05)">
+      <rect x="-4" y="42" width="8" height="26" rx="2" fill="var(--trunk)"/>
+      <circle cx="0" cy="18" r="27" fill="var(--tree-mid)"/>
+      <circle cx="-17" cy="30" r="19" fill="var(--tree-dark)"/>
+      <circle cx="17" cy="30" r="19" fill="var(--tree-dark)"/>
+    </g>
+    <g class="tree" transform="translate(860,158) scale(.72)">
+      <rect x="-4" y="42" width="8" height="26" rx="2" fill="var(--trunk)"/>
+      <circle cx="0" cy="18" r="27" fill="var(--tree-light)"/>
+      <circle cx="-17" cy="30" r="19" fill="var(--tree-mid)"/>
+      <circle cx="17" cy="30" r="19" fill="var(--tree-mid)"/>
+    </g>
+    <g class="tree" transform="translate(680,168) scale(.6)">
+      <rect x="-4" y="42" width="8" height="26" rx="2" fill="var(--trunk)"/>
+      <circle cx="0" cy="18" r="27" fill="var(--tree-mid)"/>
+      <circle cx="-17" cy="30" r="19" fill="var(--tree-dark)"/>
+      <circle cx="17" cy="30" r="19" fill="var(--tree-dark)"/>
+    </g>
+
+    <path d="M0,205 C100,180 200,215 320,200 C450,183 560,220 680,200 C780,183 850,210 900,195 L900,300 L0,300 Z" fill="var(--hill-front)"/>
+    <path d="M0,225 C130,208 260,236 400,222 C540,208 660,238 780,222 C830,215 870,222 900,218 L900,300 L0,300 Z" fill="var(--hill-front-dark)" opacity=".55"/>
+
+    <!-- arbustos junto al regalo -->
+    <g opacity=".9">
+      <circle cx="230" cy="222" r="16" fill="var(--tree-mid)"/>
+      <circle cx="248" cy="228" r="12" fill="var(--tree-dark)"/>
+      <circle cx="650" cy="222" r="16" fill="var(--tree-mid)"/>
+      <circle cx="632" cy="228" r="12" fill="var(--tree-dark)"/>
+    </g>
+
+    <g id="meadowFlowers"></g>
+  </svg>
+
+  <p class="intro-text" id="introText">Para mi hamstercito 🐹💛</p>
+
+  <div class="stage">
+    <div class="gift-wrap" id="giftWrap" role="button" tabindex="0" aria-label="Abrir el regalo">
+      <div class="box-shadow"></div>
+      <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+
+        <g class="sparkles" id="sparkles"></g>
+
+        <g class="hamster-figure" id="hamster">
+          <ellipse cx="100" cy="152" rx="34" ry="30" fill="var(--hamster-tan)"/>
+          <ellipse cx="100" cy="160" rx="21" ry="16" fill="var(--hamster-belly)"/>
+
+          <circle cx="78" cy="122" r="11" fill="var(--hamster-tan-dark)"/>
+          <circle cx="78" cy="122" r="6" fill="var(--hamster-blush)"/>
+          <circle cx="122" cy="122" r="11" fill="var(--hamster-tan-dark)"/>
+          <circle cx="122" cy="122" r="6" fill="var(--hamster-blush)"/>
+
+          <circle cx="100" cy="134" r="26" fill="var(--hamster-tan)"/>
+
+          <ellipse cx="84" cy="140" rx="9" ry="7" fill="var(--hamster-blush)" opacity=".8"/>
+          <ellipse cx="116" cy="140" rx="9" ry="7" fill="var(--hamster-blush)" opacity=".8"/>
+
+          <circle cx="91" cy="130" r="3.4" fill="var(--ink)"/>
+          <circle cx="109" cy="130" r="3.4" fill="var(--ink)"/>
+          <circle cx="92.2" cy="128.8" r="1" fill="#fff"/>
+          <circle cx="110.2" cy="128.8" r="1" fill="#fff"/>
+
+          <ellipse cx="100" cy="138" rx="2.6" ry="2" fill="#a5623a"/>
+          <path d="M100 140 q-4 5 -8 2" stroke="var(--ink)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M100 140 q4 5 8 2" stroke="var(--ink)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+          <circle cx="82" cy="151" r="8" fill="var(--hamster-tan)"/>
+          <circle cx="118" cy="151" r="8" fill="var(--hamster-tan)"/>
+
+          <!-- ramo compacto sostenido entre las patitas, bien abajo (lejos de las orejas) -->
+          <g id="bouquet">
+            <line x1="92" y1="147" x2="94" y2="132" stroke="var(--leaf-green)" stroke-width="2.6" stroke-linecap="round"/>
+            <line x1="100" y1="149" x2="100" y2="128" stroke="var(--leaf-green)" stroke-width="2.6" stroke-linecap="round"/>
+            <line x1="108" y1="147" x2="106" y2="132" stroke="var(--leaf-green)" stroke-width="2.6" stroke-linecap="round"/>
+            <ellipse cx="90" cy="144" rx="5" ry="3" fill="var(--leaf-green)" transform="rotate(-20 90 144)"/>
+            <ellipse cx="110" cy="144" rx="5" ry="3" fill="var(--leaf-green)" transform="rotate(20 110 144)"/>
+
+            <g id="bouquetFlower">
+              <g transform="rotate(30)">
+                <circle cx="0" cy="-5.5" r="4" fill="var(--flower-yellow-deep)"/>
+                <circle cx="5" cy="-2.5" r="4" fill="var(--flower-yellow-deep)"/>
+                <circle cx="3" cy="4" r="4" fill="var(--flower-yellow-deep)"/>
+                <circle cx="-3" cy="4" r="4" fill="var(--flower-yellow-deep)"/>
+                <circle cx="-5" cy="-2.5" r="4" fill="var(--flower-yellow-deep)"/>
+              </g>
+              <circle cx="0" cy="-5.5" r="4" fill="var(--flower-yellow)"/>
+              <circle cx="5" cy="-2.5" r="4" fill="var(--flower-yellow)"/>
+              <circle cx="3" cy="4" r="4" fill="var(--flower-yellow)"/>
+              <circle cx="-3" cy="4" r="4" fill="var(--flower-yellow)"/>
+              <circle cx="-5" cy="-2.5" r="4" fill="var(--flower-yellow)"/>
+              <circle cx="0" cy="0" r="3" fill="var(--flower-center)"/>
+            </g>
+
+            <g transform="translate(90,138)"><use href="#bouquetFlower"/></g>
+            <g transform="translate(100,129) scale(1.2)"><use href="#bouquetFlower"/></g>
+            <g transform="translate(110,138)"><use href="#bouquetFlower"/></g>
+
+            <!-- patitas por encima de los tallos, sujetando el ramo -->
+            <circle cx="82" cy="151" r="7.5" fill="var(--hamster-tan)"/>
+            <circle cx="118" cy="151" r="7.5" fill="var(--hamster-tan)"/>
+            <path d="M76 151 a6 6 0 0 1 12 0" fill="none" stroke="var(--hamster-tan-dark)" stroke-width="1.4" opacity=".5"/>
+            <path d="M112 151 a6 6 0 0 1 12 0" fill="none" stroke="var(--hamster-tan-dark)" stroke-width="1.4" opacity=".5"/>
+          </g>
+        </g>
+
+        <rect x="55" y="128" width="90" height="70" rx="7" fill="var(--box-red)"/>
+
+        <rect x="55" y="128" width="90" height="70" rx="7" fill="url(#shine)" opacity=".2"/>
+        <rect x="93" y="128" width="14" height="70" fill="var(--ribbon-gold)"/>
+
+        <g class="box-flap-left">
+          <rect x="55" y="128" width="45" height="70" rx="7" fill="var(--box-red)"/>
+          <rect x="93" y="128" width="7" height="70" fill="var(--ribbon-gold)"/>
+          <rect x="55" y="128" width="45" height="8" fill="#ffffff" opacity=".12"/>
+        </g>
+        <g class="box-flap-right">
+          <rect x="100" y="128" width="45" height="70" rx="7" fill="var(--box-red-dark)"/>
+          <rect x="100" y="128" width="7" height="70" fill="var(--ribbon-gold)"/>
+        </g>
+
+        <g class="box-lid">
+          <rect x="46" y="106" width="108" height="26" rx="9" fill="var(--box-red-dark)"/>
+          <rect x="46" y="106" width="108" height="10" rx="9" fill="#ffffff" opacity=".1"/>
+          <rect x="93" y="106" width="14" height="26" fill="var(--ribbon-gold-dark)"/>
+          <g class="ribbon-bow">
+            <path d="M100 112 C 82 94, 58 98, 70 116 C 77 125, 95 119, 100 112 Z" fill="var(--ribbon-gold)"/>
+            <path d="M100 112 C 118 94, 142 98, 130 116 C 123 125, 105 119, 100 112 Z" fill="var(--ribbon-gold)"/>
+            <circle cx="100" cy="112" r="7.5" fill="var(--ribbon-gold-dark)"/>
+          </g>
+          <g class="gift-tag">
+            <line x1="128" y1="112" x2="142" y2="100" stroke="var(--box-red-darker)" stroke-width="1.2"/>
+            <rect x="140" y="88" width="34" height="20" rx="3" fill="var(--cream)" stroke="var(--box-red-darker)" stroke-width="1.2" transform="rotate(12 157 98)"/>
+            <text x="157" y="101" transform="rotate(12 157 98)" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="9" font-weight="600" fill="var(--box-red-dark)">Para ti</text>
+          </g>
+        </g>
+
+        <defs>
+          <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <p class="instruction-pill" id="instruction">toca la cajita 🎁</p>
+
+  <div class="petals" id="petals"></div>
+
+  <button class="mute-btn" id="muteBtn" aria-label="Silenciar música" title="Silenciar música">🔊</button>
+  <audio id="bgMusic" src="musica.mp3" loop preload="auto"></audio>
+</div>
+
+<div class="message-overlay" id="messageOverlay">
+  <div class="message-card">
+    <p class="message-title">¡Feliz cumpleaños!</p>
+    <p class="message-body">
+      Feliz cumpleaños mi hamstercito, se que no podemos estar juntos en tu dia pero al menos hago lo mejor que puedo para darte un regalo por mucho que digas que no querías nada, pero yo quería sorprenderte con algo que se hacer y espero te guste, siempre estaré para ti y te amaré hasta que el universo explote.
+      <span class="message-shout">TE AMOOOOOOOO</span>
+    </p>
+    <button class="close-btn" id="closeBtn">cerrar</button>
+  </div>
+</div>
+
+<script>
+  // --- flores del bosquecito ---
+  const meadowFlowers = document.getElementById('meadowFlowers');
+  const meadowPositions = [
+    [40,232],[95,248],[150,228],[205,254],[260,234],[315,248],
+    [380,224],[440,250],[500,230],[560,246],[615,226],[670,252],
+    [730,232],[790,248],[845,226],[880,250],[20,260],[250,264],
+    [470,262],[700,264],[130,270],[600,270],[350,272],[820,272]
+  ];
+
+  function makeFlower(x, y, scale){
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('transform', `translate(${x},${y}) scale(${scale})`);
+    g.innerHTML = `
+      <g transform="rotate(28)">
+        <circle cx="0" cy="-4.5" r="3" fill="var(--flower-yellow-deep)"/>
+        <circle cx="4.2" cy="-1.8" r="3" fill="var(--flower-yellow-deep)"/>
+        <circle cx="2.5" cy="3" r="3" fill="var(--flower-yellow-deep)"/>
+        <circle cx="-2.5" cy="3" r="3" fill="var(--flower-yellow-deep)"/>
+        <circle cx="-4.2" cy="-1.8" r="3" fill="var(--flower-yellow-deep)"/>
+      </g>
+      <circle cx="0" cy="-4.5" r="3" fill="var(--flower-yellow)"/>
+      <circle cx="4.2" cy="-1.8" r="3" fill="var(--flower-yellow)"/>
+      <circle cx="2.5" cy="3" r="3" fill="var(--flower-yellow)"/>
+      <circle cx="-2.5" cy="3" r="3" fill="var(--flower-yellow)"/>
+      <circle cx="-4.2" cy="-1.8" r="3" fill="var(--flower-yellow)"/>
+      <circle cx="0" cy="0" r="2.1" fill="var(--flower-center)"/>
+    `;
+    return g;
+  }
+
+  meadowPositions.forEach(([x,y])=>{
+    const scale = 0.75 + Math.random()*0.7;
+    meadowFlowers.appendChild(makeFlower(x, y, scale));
+  });
+
+  // --- petalos y corazoncitos al abrir ---
+  const petalsWrap = document.getElementById('petals');
+
+  function petalShape(){
+    const roll = Math.random();
+    if(roll < 0.18){
+      return `<svg viewBox="0 0 20 20" width="13" height="13"><path d="M10 17 C2 10, 2 3, 10 7 C18 3, 18 10, 10 17 Z" fill="var(--heart-pink)"/></svg>`;
+    }
+    if(roll < 0.35){
+      return `<svg viewBox="0 0 20 20" width="14" height="14"><ellipse cx="10" cy="10" rx="9" ry="5" fill="var(--leaf-green)" transform="rotate(${Math.floor(Math.random()*360)} 10 10)"/></svg>`;
+    }
+    return `<svg viewBox="0 0 20 20" width="14" height="14">
+      <g transform="translate(10,10)">
+        <circle cx="0" cy="-6" r="4.2" fill="var(--flower-yellow)"/>
+        <circle cx="5.7" cy="-2.5" r="4.2" fill="var(--flower-yellow)"/>
+        <circle cx="3.5" cy="4.5" r="4.2" fill="var(--flower-yellow)"/>
+        <circle cx="-3.5" cy="4.5" r="4.2" fill="var(--flower-yellow)"/>
+        <circle cx="-5.7" cy="-2.5" r="4.2" fill="var(--flower-yellow)"/>
+        <circle cx="0" cy="0" r="3" fill="var(--flower-center)"/>
+      </g>
+    </svg>`;
+  }
+
+  function spawnPetals(){
+    for(let i=0;i<26;i++){
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.left = Math.random()*100 + '%';
+      p.innerHTML = petalShape();
+      const duration = 2.4 + Math.random()*1.6;
+      const delay = Math.random()*0.6;
+      p.style.animationDuration = duration + 's';
+      p.style.animationDelay = delay + 's';
+      petalsWrap.appendChild(p);
+      setTimeout(()=>p.remove(), (duration+delay)*1000 + 200);
+    }
+  }
+
+  // --- destellos alrededor de la caja ---
+  const sparklesWrap = document.getElementById('sparkles');
+  const sparklePositions = [
+    [50,120],[150,120],[100,95],[60,150],[140,150],[100,175],[40,180],[160,180]
+  ];
+  sparklePositions.forEach(([x,y],i)=>{
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx', x);
+    c.setAttribute('cy', y);
+    c.setAttribute('r', 3.5);
+    c.setAttribute('fill', 'var(--ribbon-gold)');
+    c.style.animationDelay = (i*0.05) + 's';
+    sparklesWrap.appendChild(c);
+  });
+
+  // --- musica de fondo ---
+  const bgMusic = document.getElementById('bgMusic');
+  const muteBtn = document.getElementById('muteBtn');
+  let musicStarted = false;
+
+  muteBtn.addEventListener('click', ()=>{
+    if(!musicStarted){
+      bgMusic.play().catch(()=>{});
+      musicStarted = true;
+    }
+    bgMusic.muted = !bgMusic.muted;
+    muteBtn.textContent = bgMusic.muted ? '🔇' : '🔊';
+  });
+
+  // --- apertura del regalo ---
+  const giftWrap = document.getElementById('giftWrap');
+  const introText = document.getElementById('introText');
+  const instruction = document.getElementById('instruction');
+  const messageOverlay = document.getElementById('messageOverlay');
+  const closeBtn = document.getElementById('closeBtn');
+
+  let opened = false;
+
+  function openGift(){
+    if(opened) return;
+    opened = true;
+    giftWrap.classList.add('opening');
+    introText.classList.add('hidden');
+    instruction.classList.add('hidden');
+    spawnPetals();
+
+    if(!musicStarted){
+      bgMusic.play().catch(()=>{});
+      musicStarted = true;
+    }
+
+    setTimeout(()=>{
+      giftWrap.classList.add('opened');
+      messageOverlay.classList.add('visible');
+    }, 1100);
+  }
+
+  giftWrap.addEventListener('click', openGift);
+  giftWrap.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      openGift();
+    }
+  });
+
+  closeBtn.addEventListener('click', ()=>{
+    messageOverlay.classList.remove('visible');
+  });
+  messageOverlay.addEventListener('click', (e)=>{
+    if(e.target === messageOverlay){
+      messageOverlay.classList.remove('visible');
+    }
+  });
+</script>
+
+</body>
+</html>
